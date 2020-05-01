@@ -1,7 +1,6 @@
 import nltk, flask
 import pickle as pickle
 from flask import request
-from features import clean
 nltk.download('wordnet')
 from sklearn.feature_extraction.text import TfidfVectorizer
 app = flask.Flask(__name__)
@@ -11,7 +10,7 @@ app.config["DEBUG"] = True
 def combine():
 	tokenizer = nltk.tokenize.TreebankWordTokenizer()
 	data= request.json['data'].strip()
-	tokens = (tokenizer.tokenize(data))
+	tokens = tokenizer.tokenize(data)
 	prediction = model.classify(dict([token, True] for token in tokens))
 	
 	return prediction
